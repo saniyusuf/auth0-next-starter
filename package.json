@@ -1,0 +1,23 @@
+{
+  "name": "auth-0-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "auth0-js": "^9.5.1",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "next": "^5.1.0",
+    "passport": "^0.4.0",
+    "passport-auth0": "^0.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  }
+}
