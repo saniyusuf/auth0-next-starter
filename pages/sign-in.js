@@ -1,22 +1,26 @@
 import React from 'react';
 import Auth from '../services/auth';
+import Router from 'next/router'
 
 const auth0 = new Auth();
-
-class SIgnIn extends React.Component {
+class SignIn extends React.Component {
 
     componentDidMount(){
-        auth0.handleAuthentication()
+        if (auth0.isAuthenticated()){
+            Router.push('/');
+        } else {
+            auth0.login();
+        }
     }
 
     render(){
         return(
             <div>
-                <p>Sign In User</p>
+                <p>Redirecting You To Log In</p>
             </div>
         )
     }
 
 }
 
-export default SIgnIn
+export default SignIn

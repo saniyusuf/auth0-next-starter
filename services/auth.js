@@ -1,14 +1,15 @@
 import auth0 from 'auth0-js';
-import Router from 'next/router'
+import Router from 'next/router';
 
 export default class Auth {
+
     auth0 = new auth0.WebAuth({
-        domain: 'saniyusuf.eu.auth0.com',
-        clientID: '1bB4yGTI0y4fDyrZWUF5js4wr4fMV0If',
-        redirectUri: 'http://localhost:8000/callback',
-        audience: 'https://saniyusuf.eu.auth0.com/userinfo',
-        responseType: 'token id_token',
-        scope: 'openid'
+        domain: 'YOUR.DOMAIN.AUTH0.COM',
+        clientID: 'CLIENT_ID',
+        redirectUri: 'http://localhost:8000/callback //DEFAULT FOR THIS APP',
+        audience: 'AUDIENCE',
+        responseType: 'RESPONSE1 RESPONSE2',
+        scope: 'SCOPE1 SCOPE2 ...'
     });
 
     login() {
@@ -18,6 +19,7 @@ export default class Auth {
     handleAuthentication() {
         this.auth0.parseHash({hash: window.location.hash}, (err, authResult)=> {
             if (authResult && authResult.accessToken && authResult.idToken) {
+                console.log(authResult);
              this.setSession(authResult);
              Router.push('/');
          } else if (err) {
@@ -33,8 +35,6 @@ export default class Auth {
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
-        // navigate to the home route
-        // history.replace('/');
     }
 
     logout() {
@@ -42,15 +42,18 @@ export default class Auth {
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
-        // navigate to the home route
-        // history.replace('/');
     }
+
 
     isAuthenticated() {
         // Check whether the current time is past the
         // Access Token's expiry time
         let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
+    }
+
+    refreshToken(){
+        this.auth0.checkSession();
     }
 
 }

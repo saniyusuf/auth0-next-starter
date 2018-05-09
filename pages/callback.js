@@ -1,18 +1,23 @@
 import React from 'react';
 import Auth from '../services/auth';
+import Router from "next/router";
 
 
 const auth0 = new Auth();
 
 class Callback extends React.Component {
     componentDidMount(){
-        auth0.handleAuthentication()
+        if (auth0.isAuthenticated()){
+            Router.push('/');
+        } else {
+            auth0.handleAuthentication()
+        }
     }
 
     render(){
         return(
             <div>
-                <p>Some Loader Here</p>
+                <p>Loading</p>
             </div>
         )
     }

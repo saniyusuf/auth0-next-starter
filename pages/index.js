@@ -1,5 +1,7 @@
 import React from 'react';
 import Auth from '../services/auth';
+import Menu from '../components/menu';
+
 const auth0 = new Auth();
 
 class Index extends React.Component {
@@ -20,17 +22,11 @@ class Index extends React.Component {
     auth0.login();
   }
 
-
   render(){
     return(
       <div>
-        <p>Hello there, Welcome to your great application</p>
-          {!this.state.isAuthenticated && (
-              <button onClick={this.authenticate}>Sign In</button>
-          )}
-          {this.state.isAuthenticated && (
-              <button onClick={this.authenticate}>Log Out</button>
-          )}
+          <Menu isLoggedIn={this.state.isAuthenticated}/>
+          <p>Hello there, Welcome to your great application</p>
       </div>
     )
   }
